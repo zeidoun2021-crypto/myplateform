@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: #000;
+}
+
+/* Logo + صورة */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* صورتك */
+.profile {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid orange;
+}
+
+/* النص */
+.logo-text h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.logo-text p {
+  margin: 0;
+  font-size: 12px;
+  color: #ccc;
+}
+
+/* Menu */
+nav a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  margin-top: 80px;
+}
+
+button {
+  padding: 12px 25px;
+  background: orange;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Cards */
+.cards {
+  padding: 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 10px;
+}
+
+video {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #000;
+}
