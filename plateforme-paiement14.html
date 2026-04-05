@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة زايد للتكنولوجيات الحاسوبية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif;}
+        body{background:linear-gradient(135deg,#0f172a,#1e293b);color:white;min-height:100vh;}
+        .header{text-align:center;padding:20px;}
+        .logo-wrapper{position:relative;width:150px;height:150px;margin:0 auto 20px;}
+        .rotating-text{position:absolute;width:100%;height:100%;animation:rotateText 12s linear infinite;}
+        @keyframes rotateText{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+        .rotating-text svg{width:100%;height:100%;}
+        .rotating-text text{fill:#ff3b3b;font-size:10px;font-weight:bold;}
+        .logo-img{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid #38bdf8;}
+        h1{color:#38bdf8;font-size:24px;}
+        .marquee-horizontal{width:100%;overflow:hidden;background:rgba(30,41,59,0.9);padding:10px 0;margin:15px 0;border-radius:8px;white-space:nowrap;}
+        .marquee-horizontal span{display:inline-block;padding-left:100%;animation:scrollHorizontal 20s linear infinite;color:#38bdf8;}
+        @keyframes scrollHorizontal{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
+        .container{max-width:550px;margin:20px auto;padding:25px;background:rgba(30,41,59,0.95);border-radius:25px;}
+        h2{text-align:center;margin-bottom:20px;color:#38bdf8;}
+        input,textarea{width:100%;padding:12px;border:none;border-radius:12px;font-size:16px;background:#f1f5f9;margin-bottom:10px;}
+        .radio-group{display:flex;gap:15px;justify-content:center;margin:15px 0;flex-wrap:wrap;}
+        .radio-group label{display:flex;align-items:center;gap:8px;cursor:pointer;padding:10px 20px;background:#334155;border-radius:12px;}
+        .radio-group label.selected{background:#38bdf8;color:#1e293b;}
+        .dynamic-fields{background:#1e3a5f;padding:15px;border-radius:15px;margin-top:15px;display:none;}
+        .btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:bold;font-size:16px;cursor:pointer;margin-top:15px;}
+        .btn-primary{background:linear-gradient(135deg,#00c9ff,#92fe9e);color:#1e293b;}
+        .btn-secondary{background:#334155;color:white;}
+        .btn-free{background:#f59e0b;color:white;}
+        .welcome-buttons{display:flex;gap:15px;margin-top:25px;}
+        .welcome-buttons .btn{flex:1;}
+        .features{display:flex;justify-content:center;gap:30px;margin-top:25px;flex-wrap:wrap;}
+        .feature{text-align:center;}
+        .feature .icon{font-size:35px;}
+        .payment-options{display:flex;gap:15px;margin:20px 0;flex-wrap:wrap;}
+        .payment-card{flex:1;background:#1e293b;border-radius:15px;padding:20px;text-align:center;cursor:pointer;border:2px solid transparent;}
+        .payment-card.selected{border-color:#22c55e;background:#2d3a55;}
+        .price{font-size:28px;font-weight:bold;color:#22c55e;}
+        .dashboard{display:none;padding-bottom:80px;}
+        .nav-bar{display:flex;justify-content:center;gap:15px;margin:20px;flex-wrap:wrap;}
+        .nav-btn{padding:12px 25px;border:none;border-radius:30px;font-weight:bold;cursor:pointer;}
+        .slide{display:none;max-width:700px;margin:20px auto;padding:20px;background:#1e293b;border-radius:25px;}
+        .slide.active{display:block;}
+        .story{background:linear-gradient(135deg,#ffecd2,#fcb69f);color:#1e293b;padding:20px;border-radius:20px;line-height:1.8;text-align:right;}
+        .box{background:#1e293b;padding:20px;border-radius:20px;text-align:center;}
+        .box img{max-width:100%;border-radius:15px;margin-top:15px;}
+        .counter{text-align:center;margin:15px;color:#38bdf8;}
+        .error-msg{color:#ff6b6b;font-size:13px;margin-top:5px;text-align:center;}
+        .loading{display:inline-block;width:20px;height:20px;border:3px solid white;border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;}
+        @keyframes spin{to{transform:rotate(360deg);}}
+        .footer{text-align:center;padding:15px;margin-top:20px;border-top:1px solid #334155;font-size:12px;}
+        .admin-link{text-align:center;margin:10px;}
+        .admin-link button{background:transparent;border:1px solid #38bdf8;color:#38bdf8;padding:6px 15px;border-radius:20px;cursor:pointer;}
+        .free-banner{background:linear-gradient(135deg,#f59e0b,#ef4444);padding:10px;border-radius:15px;margin-bottom:15px;}
+        .certificate{background:linear-gradient(135deg,#fff8e7,#ffe4b5);color:#1e293b;padding:25px;border-radius:20px;text-align:center;border:4px solid #f59e0b;}
+        .certificate .name{font-size:22px;font-weight:bold;margin:10px 0;border-bottom:2px solid #f59e0b;display:inline-block;}
+        .hide{display:none !important;}
+        .quiz-question{background:#334155;padding:12px;border-radius:12px;margin-bottom:12px;}
+        .score-bar{width:100%;background:#334155;border-radius:10px;height:15px;margin:15px 0;}
+        .score-fill{height:15px;background:#22c55e;border-radius:10px;}
+        .story-image{width:100%;border-radius:15px;margin:10px 0;}
+        .video-container{background:#0f172a;border-radius:15px;padding:20px;text-align:center;margin:15px 0;}
+        .video-link{display:inline-block;background:#ff0000;color:white;padding:12px 25px;border-radius:30px;text-decoration:none;font-weight:bold;margin:10px;}
+        .video-link-alt{background:#38bdf8;color:#1e293b;}
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo-wrapper">
+        <div class="rotating-text">
+            <svg viewBox="0 0 200 200">
+                <defs><path id="textPath" d="M 100, 10 A 90, 90 0 1,1 99.9, 10" /></defs>
+                <text font-size="11" fill="#ff3b3b" font-weight="bold">
+                    <textPath href="#textPath" startOffset="0%">• منصة زايد للتكنولوجيات الحاسوبية •</textPath>
+                </text>
+            </svg>
+        </div>
+        <img class="logo-img" src="https://i.postimg.cc/FKM4M1Hc/150620252.jpg" onerror="this.src='https://via.placeholder.com/100x100/1e293b/38bdf8?text=Z'">
+    </div>
+    <h1>منصة زايد للتكنولوجيات الحاسوبية</h1>
+    <div class="marquee-horizontal"><span>🎓 منصة زايد للتكنولوجيات الحاسوبية | دروس تفاعلية | تمارين | شهادات معتمدة 🎓</span></div>
+</div>
+
+<div id="welcomeScreen">
+    <div class="container">
+        <div class="free-banner"><span>🎁 درس مجاني! يمكنك مشاهدة نموذج من الدرس قبل التسجيل 🎁</span></div>
+        <h2>🌟 مرحباً بك</h2>
+        <div class="welcome-buttons">
+            <button class="btn btn-free" onclick="startFreeLesson()">🎁 درس تجريبي مجاناً</button>
+            <button class="btn btn-primary" onclick="showRegistration()">✅ تسجيل ودفع</button>
+            <button class="btn btn-secondary" onclick="showExitMessage()">❌ لا، شكراً</button>
+        </div>
+    </div>
+</div>
+
+<div id="exitScreen" class="hide">
+    <div class="container">
+        <h2>🙏 شكراً لزيارتك</h2>
+        <button class="btn btn-primary" onclick="showWelcome()">↩️ العودة</button>
+    </div>
+</div>
+
+<div id="registerSection" class="hide">
+    <div class="container">
+        <h2>🔐 تسجيل جديد</h2>
+        <input type="text" id="firstName" placeholder="الاسم *">
+        <input type="text" id="lastName" placeholder="اللقب *">
+        <input type="text" id="country" placeholder="البلد *">
+        <input type="tel" id="whatsapp" placeholder="واتساب *">
+        <input type="email" id="email" placeholder="الإيميل *">
+        
+        <div class="radio-group">
+            <label onclick="selectRole('طفل')" id="roleChild">🧒 طفل</label>
+            <label onclick="selectRole('ولي')" id="roleParent">👨‍👩‍👧 ولي أمر</label>
+            <label onclick="selectRole('أستاذ')" id="roleTeacher">👨‍🏫 أستاذ</label>
+        </div>
+        
+        <div id="extraFields" class="dynamic-fields">
+            <input type="text" id="profession" placeholder="المهنة *">
+            <input type="text" id="specialty" placeholder="الاختصاص *">
+        </div>
+        
+        <button class="btn btn-primary" onclick="validateAndProceed()">📝 متابعة</button>
+        <button class="btn btn-secondary" onclick="showWelcome()">↩️ رجوع</button>
+        <div id="registerError"></div>
+    </div>
+</div>
+
+<div id="paymentSection" class="hide">
+    <div class="container">
+        <h2>💰 اختيار باقة الدفع</h2>
+        <div id="userInfo" style="background:#334155; padding:12px; border-radius:12px; margin-bottom:15px;"></div>
+        <div class="payment-options">
+            <div class="payment-card" onclick="selectPlan('single')" id="cardSingle"><h3>📘 نسخة واحدة</h3><div class="price">15 <small>د.ت</small></div></div>
+            <div class="payment-card" onclick="selectPlan('subscription')" id="cardSub"><h3>🌟 اشتراك شامل</h3><div class="price">20 <small>د.ت</small></div></div>
+        </div>
+        <button class="btn btn-primary" onclick="processPayment()">💳 دفع</button>
+        <button class="btn btn-secondary" onclick="backToRegister()">↩️ رجوع</button>
+        <div id="paymentError"></div>
+    </div>
+</div>
+
+<div id="processingSection" class="hide">
+    <div class="container" style="text-align:center;">
+        <div class="loading"></div>
+        <h3>⏳ جاري المعالجة...</h3>
+    </div>
+</div>
+
+<div id="successSection" class="hide">
+    <div class="container" style="text-align:center;">
+        <div style="font-size:50px;">✅</div>
+        <h2>تم الدفع!</h2>
+        <button class="btn btn-primary" onclick="enterPaidPlatform()">🎉 دخول</button>
+    </div>
+</div>
+
+<div id="freeDashboard" class="dashboard">
+    <div class="nav-bar">
+        <button class="nav-btn" style="background:#f43f5e;" onclick="changeFreeSlide(-1)">◀ السابق</button>
+        <button class="nav-btn" style="background:#22c55e;" onclick="changeFreeSlide(1)">التالي ▶</button>
+        <button class="nav-btn" style="background:#f97316;" onclick="exitFreeLesson()">🚪 خروج</button>
+    </div>
+    <div class="counter" id="freeCounter"></div>
+    <div id="freeSlidesContainer"></div>
+</div>
+
+<div id="paidDashboard" class="dashboard">
+    <div class="nav-bar">
+        <button class="nav-btn" style="background:#f43f5e;" onclick="changePaidSlide(-1)">◀ السابق</button>
+        <button class="nav-btn" style="background:#22c55e;" onclick="changePaidSlide(1)">التالي ▶</button>
+        <button class="nav-btn" style="background:#f97316;" onclick="showWelcome()">🚪 خروج</button>
+    </div>
+    <div class="counter" id="paidCounter"></div>
+    <div id="paidSlidesContainer"></div>
+</div>
+
+<div class="admin-link"><button onclick="showAdminLogin()">👨‍💼 مشرف</button></div>
+<div class="footer"><p>منصة زايد - جميع الحقوق محفوظة © 2024</p></div>
+
+<script>
+const DB = { getUsers: () => JSON.parse(localStorage.getItem('users') || '[]'), setUsers: (u) => localStorage.setItem('users', JSON.stringify(u)) };
+let currentUser = null, selectedPlan = null, freeCurrentSlide = 0, paidCurrentSlide = 0, quizScore = 0;
+
+function selectRole(r) {
+    document.getElementById('roleChild').classList.remove('selected');
+    document.getElementById('roleParent').classList.remove('selected');
+    document.getElementById('roleTeacher').classList.remove('selected');
+    if(r === 'طفل') document.getElementById('roleChild').classList.add('selected');
+    else if(r === 'ولي') document.getElementById('roleParent').classList.add('selected');
+    else document.getElementById('roleTeacher').classList.add('selected');
+    document.getElementById('extraFields').style.display = (r === 'طفل') ? 'none' : 'block';
+}
+
+// المحتوى المجاني مع فيديو يعمل 100%
+const freeSlides = [
+    `<div class="box">
+        <h2>📘 الأطفال والحاسوب</h2>
+        <img class="story-image" src="https://i.postimg.cc/fW7jmsDB/swrt-llatfal-m-alhaswb.jpg" alt="أطفال والحاسوب" onerror="this.src='https://via.placeholder.com/500x300/1e293b/38bdf8?text=Kids+and+Computer'">
+        <div class="story" style="margin-top:15px;">
+            <p style="font-size:20px; font-weight:bold; text-align:center;">📖 قصة قصيرة: رحلة ريم وياسين</p>
+            <br>
+            <p>كان يا مكان في إحدى المدن، طفلة ذكية اسمها <strong>ريم</strong> وطفل نشيط اسمه <strong>ياسين</strong>. كانا يجلسان ذات يوم في غرفة الجلوس، وفجأة رأيا جهازاً غريباً على المكتب.</p>
+            <br>
+            <p>قالت ريم بفضول: "ما هذا الجهاز يا ياسين؟"</p>
+            <br>
+            <p>أجاب ياسين: "هذا هو <strong>الحاسوب</strong>! سمعت عنه كثيراً لكني لم أستعمله من قبل."</p>
+            <br>
+            <p>قررا أن يكتشفا هذا الجهاز معاً. ضغط ياسين على الزر الكبير، فإذا بالشاشة تضيء وتظهر عليها رسالة ترحيبية: <strong>"مرحباً بكما في عالم الحاسوب الممتع!"</strong></p>
+            <br>
+            <p>فرحت ريم وياسين كثيراً وقررا أن يتعلما كل شيء عن هذا الصديق الجديد...</p>
+            <br>
+            <p style="color:#f59e0b; font-size:18px;">✨ هل تريد أن تعرف ما اكتشفاه؟ تابع معنا الدروس القادمة! ✨</p>
+        </div>
+    </div>`,
+    `<div class="story"><p style="font-size:18px; font-weight:bold;">💬 حوار بين الأطفال والحاسوب</p><br><p>👦 الأطفال: ما اسمك أيها الصديق؟</p><p>💻 الحاسوب: لي اسمان: الكمبيوتر أو الحاسوب.</p><p>👦 الأطفال: صف لنا نفسك؟</p><p>💻 الحاسوب: أتكون من جزئين: 🔧 مادي (Hardware) و 💿 برمجي (Software)</p></div>`,
+    `<div class="story"><p>👦 الأطفال: يقال عنك ذكي وسريع في الرياضيات. كيف ذلك؟</p><p>💻 الحاسوب: أتكون من الداخل من <strong>المعالج</strong> (يشبه القلب والعقل) و<strong>الذاكرة</strong> (فضاء الاشتغال).</p></div>`,
+    `<div class="story"><p>👦 الأطفال: ما هي الوحدة المركزية؟</p><p>💻 الحاسوب: هي قلبي النابض وعقلي المفكر، تشتمل على وحدة الأوامر ووحدة معالجة المعطيات.</p><p>وأستعمل <strong>الذاكرة الرئيسية (RAM)</strong> وتسمى "الذاكرة الحية".</p></div>`,
+    `<div class="story"><p>🔗 <strong>الروابط:</strong> تنقل عناوين الأوامر والمعطيات.</p><p>📷 <strong>الوسائط:</strong> عناصر موصولة بالروابط مثل كاميرا الفيديو الرقمية.</p></div>`,
+    // شريحة الفيديو - رابط يعمل 100%
+    `<div class="box">
+        <h2>🎬 مكونات الحاسوب</h2>
+        <div class="video-container">
+            <div style="font-size:50px; margin-bottom:10px;">📹</div>
+            <p style="margin-bottom:10px;">شاهد الفيديو التعليمي:</p>
+            <a href="https://youtu.be/6unZgmlAavQ" target="_blank" class="video-link">▶ مشاهدة على YouTube</a>
+            <a href="https://youtu.be/8rtQbHqXjGM" target="_blank" class="video-link video-link-alt" style="background:#38bdf8; color:#1e293b;">▶ رابط بديل</a>
+        </div>
+        <div style="margin-top:15px; background:#1e3a5f; padding:12px; border-radius:12px;">
+            <p>📖 <strong>ملخص الفيديو:</strong></p>
+            <p>🔧 <strong>المكونات المادية (Hardware):</strong> الشاشة، لوحة المفاتيح، الفأرة، المعالج (CPU)، الذاكرة (RAM)</p>
+            <p>💿 <strong>المكونات البرمجية (Software):</strong> نظام التشغيل، التطبيقات، الألعاب</p>
+            <p>📚 <strong>الشرح باللغات:</strong> العربية - الإنجليزية - الفرنسية</p>
+            <p>💡 الحاسوب = Hardware + Software، لا يمكن لأحدهما العمل بدون الآخر!</p>
+        </div>
+    </div>`,
+    `<div class="box"><h2>📝 تمارين (20 نقطة)</h2>
+        <div class="quiz-question"><p><strong>❶ ماهي مكونات الحاسوب؟</strong></p><input type="text" id="q1"><div id="fb1"></div></div>
+        <div class="quiz-question"><p><strong>❷ ما المواد المصنعة للحاسوب؟</strong></p><input type="text" id="q2"><div id="fb2"></div></div>
+        <div class="quiz-question"><p><strong>❸ ما هي الذاكرة الرئيسية؟</strong></p><input type="text" id="q3"><div id="fb3"></div></div>
+        <button class="btn btn-primary" onclick="gradeQuiz()">✅ تصحيح</button><div id="quizResultMsg"></div></div>`,
+    `<div class="box"><h2>🎯 نتيجتك</h2><div id="scoreDisplayArea"></div><div id="adviceArea"></div></div>`,
+    `<div class="certificate"><h2>🏆 شهادة إتمام</h2><p>تشهد منصة زايد للتكنولوجيات الحاسوبية بأن</p><div class="name" id="certStudentName">الطالب</div><p>قد أتم الدرس التجريبي بنجاح</p><button class="btn btn-primary" onclick="showRegistration()">💰 التسجيل للدرس المدفوع</button><button class="btn btn-secondary" onclick="showWelcome()">🏠 الرئيسية</button></div>`,
+    `<div class="box"><h2>💰 هل تريد الاستمرار؟</h2><div style="text-align:center;"><p>📚 المحتوى الكامل: 46 درساً | فيديوهات حصرية | شهادة معتمدة</p><p>💰 15 د.ت (نسخة) | 20 د.ت (اشتراك)</p><button class="btn btn-primary" onclick="showRegistration()">✅ تسجيل ودفع</button><button class="btn btn-secondary" onclick="showWelcome()">↩️ الرئيسية</button></div></div>`
+];
+
+function buildFreeSlides() {
+    let c = document.getElementById('freeSlidesContainer');
+    c.innerHTML = '';
+    freeSlides.forEach((h,i) => { let d = document.createElement('div'); d.className = 'slide'; d.innerHTML = h; c.appendChild(d); });
+}
+function showFreeSlide(i) {
+    let s = document.querySelectorAll('#freeSlidesContainer .slide');
+    if(s.length === 0) return;
+    s.forEach(s => s.classList.remove('active'));
+    if(i < 0) i = 0;
+    if(i >= s.length) i = s.length - 1;
+    s[i].classList.add('active');
+    freeCurrentSlide = i;
+    document.getElementById('freeCounter').innerHTML = `📖 الشريحة ${i+1}/${s.length}`;
+}
+function changeFreeSlide(d) { showFreeSlide(freeCurrentSlide + d); }
+function exitFreeLesson() { showWelcome(); }
+function startFreeLesson() {
+    document.getElementById('welcomeScreen').classList.add('hide');
+    document.getElementById('freeDashboard').style.display = 'block';
+    buildFreeSlides();
+    showFreeSlide(0);
+}
+
+function gradeQuiz() {
+    let total = 0;
+    if(document.getElementById('q1')?.value.toLowerCase().includes('جزئين')) total += 7;
+    if(document.getElementById('q2')?.value.toLowerCase().includes('معادن')) total += 7;
+    if(document.getElementById('q3')?.value.toLowerCase().includes('ram')) total += 6;
+    quizScore = total;
+    document.getElementById('quizResultMsg').innerHTML = `<div style="background:#1e293b; padding:12px;"><p>${total}/20</p><button class="btn btn-primary" onclick="goToScoreSlide()">📊 عرض النتيجة</button></div>`;
+    localStorage.setItem('studentName', document.getElementById('firstName')?.value || 'الطالب');
+}
+function goToScoreSlide() { showFreeSlide(7); setTimeout(() => { document.getElementById('scoreDisplayArea').innerHTML = `<div style="font-size:40px;">${quizScore}/20</div><div class="score-bar"><div class="score-fill" style="width:${(quizScore/20)*100}%"></div></div><button class="btn btn-primary" onclick="goToCertificateSlide()">🏆 الانتقال للشهادة</button>`; }, 100); }
+function goToCertificateSlide() { showFreeSlide(8); document.getElementById('certStudentName').innerHTML = localStorage.getItem('studentName') || 'الطالب'; }
+
+function showWelcome() {
+    document.getElementById('welcomeScreen').classList.remove('hide');
+    document.getElementById('exitScreen').classList.add('hide');
+    document.getElementById('registerSection').classList.add('hide');
+    document.getElementById('paymentSection').classList.add('hide');
+    document.getElementById('processingSection').classList.add('hide');
+    document.getElementById('successSection').classList.add('hide');
+    document.getElementById('freeDashboard').style.display = 'none';
+    document.getElementById('paidDashboard').style.display = 'none';
+}
+function showExitMessage() {
+    document.getElementById('welcomeScreen').classList.add('hide');
+    document.getElementById('exitScreen').classList.remove('hide');
+}
+function showRegistration() {
+    document.getElementById('welcomeScreen').classList.add('hide');
+    document.getElementById('registerSection').classList.remove('hide');
+    document.getElementById('extraFields').style.display = 'none';
+    document.getElementById('roleChild').classList.remove('selected');
+    document.getElementById('roleParent').classList.remove('selected');
+    document.getElementById('roleTeacher').classList.remove('selected');
+}
+
+function validateAndProceed() {
+    let fn = document.getElementById('firstName').value.trim();
+    let ln = document.getElementById('lastName').value.trim();
+    let c = document.getElementById('country').value.trim();
+    let w = document.getElementById('whatsapp').value.trim();
+    let e = document.getElementById('email').value.trim();
+    let r = null;
+    if(document.getElementById('roleChild').classList.contains('selected')) r = 'طفل';
+    else if(document.getElementById('roleParent').classList.contains('selected')) r = 'ولي';
+    else if(document.getElementById('roleTeacher').classList.contains('selected')) r = 'أستاذ';
+    
+    if(!fn || !ln || !c || !w || !e || !r) {
+        document.getElementById('registerError').innerHTML = '<div class="error-msg">⚠️ جميع الحقول مطلوبة</div>';
+        return;
+    }
+    let prof = '', spec = '';
+    if(r !== 'طفل') {
+        prof = document.getElementById('profession').value.trim();
+        spec = document.getElementById('specialty').value.trim();
+        if(!prof || !spec) {
+            document.getElementById('registerError').innerHTML = '<div class="error-msg">⚠️ المهنة والاختصاص مطلوبان</div>';
+            return;
+        }
+    }
+    currentUser = { id: Date.now(), firstName: fn, lastName: ln, country: c, whatsapp: w, email: e, role: r, profession: prof, specialty: spec, verified: false };
+    document.getElementById('userInfo').innerHTML = `👋 مرحباً ${fn} ${ln}<br>📍 ${c}<br>👥 ${r}`;
+    document.getElementById('registerSection').classList.add('hide');
+    document.getElementById('paymentSection').classList.remove('hide');
+}
+function selectPlan(p) {
+    selectedPlan = p;
+    if(p === 'single') { document.getElementById('cardSingle').classList.add('selected'); document.getElementById('cardSub').classList.remove('selected'); }
+    else { document.getElementById('cardSingle').classList.remove('selected'); document.getElementById('cardSub').classList.add('selected'); }
+}
+function backToRegister() {
+    document.getElementById('paymentSection').classList.add('hide');
+    document.getElementById('registerSection').classList.remove('hide');
+}
+function processPayment() {
+    if(!selectedPlan) { document.getElementById('paymentError').innerHTML = '<div class="error-msg">⚠️ اختر باقة</div>'; return; }
+    document.getElementById('paymentSection').classList.add('hide');
+    document.getElementById('processingSection').classList.remove('hide');
+    setTimeout(() => {
+        currentUser.verified = true;
+        currentUser.paymentType = selectedPlan;
+        currentUser.paymentAmount = selectedPlan === 'single' ? 15 : 20;
+        let users = DB.getUsers();
+        users.push(currentUser);
+        DB.setUsers(users);
+        document.getElementById('processingSection').classList.add('hide');
+        document.getElementById('successSection').classList.remove('hide');
+    }, 1500);
+}
+function enterPaidPlatform() {
+    document.getElementById('successSection').classList.add('hide');
+    document.getElementById('paidDashboard').style.display = 'block';
+    let container = document.getElementById('paidSlidesContainer');
+    container.innerHTML = '';
+    for(let i = 1; i <= 46; i++) {
+        let div = document.createElement('div');
+        div.className = 'slide';
+        div.innerHTML = `<div class="story">📚 <strong>الدرس ${i}</strong><br><br>محتوى الدرس ${i}</div>`;
+        container.appendChild(div);
+    }
+    showPaidSlide(0);
+}
+function showPaidSlide(i) {
+    let slides = document.querySelectorAll('#paidSlidesContainer .slide');
+    if(slides.length === 0) return;
+    slides.forEach(s => s.classList.remove('active'));
+    if(i < 0) i = 0;
+    if(i >= slides.length) i = slides.length - 1;
+    slides[i].classList.add('active');
+    paidCurrentSlide = i;
+    document.getElementById('paidCounter').innerHTML = `📖 الدرس ${i+1}/${slides.length}`;
+}
+function changePaidSlide(d) { showPaidSlide(paidCurrentSlide + d); }
+
+function showAdminLogin() {
+    let pwd = prompt('🔐 كلمة مرور المشرف:');
+    if(pwd === 'admin123') {
+        let users = DB.getUsers();
+        alert(`✅ مرحباً مشرف\n👥 المسجلين: ${users.length}\n💰 المدفوعات: ${users.filter(u=>u.verified).length}`);
+    } else if(pwd) alert('❌ كلمة المرور غير صحيحة');
+}
+</script>
+</body>
+</html>
